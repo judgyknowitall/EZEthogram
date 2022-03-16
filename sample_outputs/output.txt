@@ -1,0 +1,136 @@
+Extracting events for eNPHR 1.0 SS_6...
+Drawing Gantt Chart...
+	- Found 21 occurrences of Grooming
+	- Found 140 occurrences of In Place Activity
+	- Found 101 occurrences of Locomotion
+	- Found 2 occurrences of No Movement
+	- Found 34 occurrences of rearing (supported)
+	- Found 9 occurrences of rearing (unsupported)
+
+Extracting events for eNPHR 1.0 SS_7...
+Drawing Gantt Chart...
+	- Found 28 occurrences of Grooming
+	- Found 121 occurrences of In Place Activity
+	- Found 33 occurrences of Locomotion
+	- Found 39 occurrences of No Movement
+	- Found 24 occurrences of rearing (supported)
+	- Found 3 occurrences of rearing (unsupported)
+
+Extracting events for eNPHR 1.0 SS_9...
+Drawing Gantt Chart...
+	- Found 30 occurrences of Grooming
+	- Found 76 occurrences of In Place Activity
+	- Found 29 occurrences of Locomotion
+	- Found 17 occurrences of No Movement
+	- Found 8 occurrences of rearing (supported)
+
+Extracting events for OFT 0121_9...
+Drawing Gantt Chart...
+	- Found 30 occurrences of Grooming
+	- Found 132 occurrences of In Place Activity
+	- Found 81 occurrences of Locomotion
+	- Found 13 occurrences of No Movement
+	- Found 15 occurrences of rearing (supported)
+	- Found 2 occurrences of rearing (unsupported)
+
+Extracting events for OFT 0121_11...
+Drawing Gantt Chart...
+	- Found 34 occurrences of Grooming
+	- Found 97 occurrences of In Place Activity
+	- Found 66 occurrences of Locomotion
+	- Found 5 occurrences of No Movement
+	- Found 8 occurrences of rearing (supported)
+
+Extracting events for OFT 0121_12...
+Drawing Gantt Chart...
+	- Found 29 occurrences of Grooming
+	- Found 94 occurrences of In Place Activity
+	- Found 30 occurrences of Locomotion
+	- Found 36 occurrences of No Movement
+	- Found 1 occurrences of rearing (supported)
+
+Extracting events for OFT 0121_13...
+Drawing Gantt Chart...
+	- Found 31 occurrences of Grooming
+	- Found 104 occurrences of In Place Activity
+	- Found 54 occurrences of Locomotion
+	- Found 9 occurrences of No Movement
+	- Found 19 occurrences of rearing (supported)
+	- Found 1 occurrences of rearing (unsupported)
+
+Extracting events for OFT 0121_14...
+Drawing Gantt Chart...
+	- Found 35 occurrences of Grooming
+	- Found 92 occurrences of In Place Activity
+	- Found 46 occurrences of Locomotion
+	- Found 15 occurrences of No Movement
+	- Found 22 occurrences of rearing (supported)
+	- Found 1 occurrences of rearing (unsupported)
+
+Extracting events for OFT June 2021_10...
+Drawing Gantt Chart...
+	- Found 12 occurrences of Grooming
+	- Found 119 occurrences of In Place Activity
+	- Found 101 occurrences of Locomotion
+	- Found 1 occurrences of No Movement
+	- Found 28 occurrences of rearing (supported)
+
+Extracting events for OFT June 2021_11...
+Drawing Gantt Chart...
+	- Found 17 occurrences of Grooming
+	- Found 127 occurrences of In Place Activity
+	- Found 106 occurrences of Locomotion
+	- Found 34 occurrences of rearing (supported)
+	- Found 3 occurrences of rearing (unsupported)
+
+Extracting events for OFT June 2021_14...
+Drawing Gantt Chart...
+	- Found 14 occurrences of Grooming
+	- Found 112 occurrences of In Place Activity
+	- Found 76 occurrences of Locomotion
+	- Found 17 occurrences of No Movement
+	- Found 29 occurrences of rearing (supported)
+	- Found 6 occurrences of rearing (unsupported)
+
+Extracting events for OFT June 2021_15...
+Drawing Gantt Chart...
+	- Found 29 occurrences of Grooming
+	- Found 116 occurrences of In Place Activity
+	- Found 62 occurrences of Locomotion
+	- Found 17 occurrences of No Movement
+	- Found 18 occurrences of rearing (supported)
+	- Found 3 occurrences of rearing (unsupported)
+
+Extracting events for OFT June 2021_19...
+Drawing Gantt Chart...
+	- Found 17 occurrences of Grooming
+	- Found 99 occurrences of In Place Activity
+	- Found 52 occurrences of Locomotion
+	- Found 22 occurrences of No Movement
+	- Found 12 occurrences of rearing (supported)
+	- Found 4 occurrences of rearing (unsupported)
+
+Extracting events for OFT290421_9...
+Drawing Gantt Chart...
+	- Found 34 occurrences of Grooming
+	- Found 95 occurrences of In Place Activity
+	- Found 28 occurrences of Locomotion
+	- Found 35 occurrences of No Movement
+	- Found 13 occurrences of rearing (supported)
+
+Extracting events for OFT290421_10...
+Drawing Gantt Chart...
+	- Found 27 occurrences of Grooming
+	- Found 125 occurrences of In Place Activity
+	- Found 42 occurrences of Locomotion
+	- Found 36 occurrences of No Movement
+	- Found 30 occurrences of rearing (supported)
+	- Found 7 occurrences of rearing (unsupported)
+
+Extracting events for OFT290421_11...
+Drawing Gantt Chart...
+	- Found 24 occurrences of Grooming
+	- Found 109 occurrences of In Place Activity
+	- Found 42 occurrences of Locomotion
+	- Found 18 occurrences of No Movement
+	- Found 10 occurrences of rearing (supported)
