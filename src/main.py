@@ -7,18 +7,14 @@ Created on Thu Mar 17 09:52:55 2022
 https://www.pythonguis.com/tutorials/pyqt6-creating-your-first-window/
 """
 
-import sys
-
-from PyQt6.QtGui import QGuiApplication
-from PyQt6.QtQml import QQmlApplicationEngine
-
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt6.QtCore import *
+from PyQt6.QtWidgets import QApplication, QWidget
 
 
 # Subclass QMainWindow to customize your application's main window
 '''
 class MainWindow(QMainWindow):
+    pass
     
     def __init__(self):
         super().__init__()
@@ -32,28 +28,20 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(button)
 '''
 
+
 def main():
     
-    
-    #QQuickWindow.setSceneGraphBackend('software')
-    
-    app = QGuiApplication(sys.argv)
-    
-    engine = QQmlApplicationEngine()
-    engine.quit.connect(app.quit)
-    engine.load('main.qml')
-    win = engine.rootObjects()[0]
-    win.show()
-
-    sys.exit(app.exec())
-    '''
     app = QApplication([])
-    window = MainWindow()
+    window = QWidget()
     window.show()
     
     app.exec()
-'''
+
 
 
 if __name__ == '__main__':
     main()    
+
+
+
+
