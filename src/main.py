@@ -4,12 +4,13 @@ Created on Thu Mar 17 09:52:55 2022
 
 @author: Zahra Ghavasieh
 
-https://www.pythonguis.com/tutorials/pyqt6-creating-your-first-window/
+https://www.pythonguis.com/tutorials/pyqt6-widgets/
 https://doc.qt.io/qt-5/index.html
 """
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QVBoxLayout, QWidget
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QVBoxLayout, QWidget, QMenu
 
 
 # Subclass QMainWindow to customize your application's main window
@@ -29,9 +30,9 @@ class MainWindow(QMainWindow):
         self.button.clicked.connect(self.the_button_was_clicked)
         self.button.clicked.connect(self.the_button_was_toggled)
         
-        self.label = QLabel()
+        self.label = QLabel("click in this window")
         self.input = QLineEdit()
-        self.input.textChanged.connect(self.label.setText)
+        #self.input.textChanged.connect(self.label.setText)
         
         # LAYOUT ----------------------------
         
@@ -44,6 +45,7 @@ class MainWindow(QMainWindow):
         container.setLayout(layout)
         
         self.setCentralWidget(container)
+        self.i = 0
     
         
     # SLOTS ------------------------------------------------------------------
@@ -55,7 +57,22 @@ class MainWindow(QMainWindow):
 
     def the_button_was_toggled(self, checked):
         print("CHECKED?", checked)
-
+    
+    # EVENTS -----------------------------------------------------------------
+        
+    def mouseMoveEvent(self, e):
+        #self.setMouseTracking(True) # to track without having to click on window
+        self.label.setText("mouseMoveEvent : " + str(self.i))
+        self.i += 1
+        # e.accept() / e.ignore() # to handle event (if ignored, event is bubbled to layout parent)
+        
+    # global context menu!
+    def contextMenuEvent(self, e):
+        context = QMenu(self)
+        context.addAction(QAction("test 1", self))
+        context.addAction(QAction("test 2", self))
+        context.addAction(QAction("test 3", self))
+        context.exec(e.globalPos())
 
 def main():
     
