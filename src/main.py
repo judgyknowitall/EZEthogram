@@ -4,13 +4,37 @@ Created on Thu Mar 17 09:52:55 2022
 
 @author: Zahra Ghavasieh
 
+- on QListWidget
 https://www.pythonguis.com/tutorials/pyqt6-widgets/
 https://doc.qt.io/qt-5/index.html
 """
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtGui import QAction
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QVBoxLayout, QWidget, QMenu
+from PyQt6.QtGui import QAction, QPixmap
+from PyQt6.QtWidgets import (
+    QApplication,
+    QMenu,
+    QCheckBox,
+    QComboBox,
+    QDateEdit,
+    QDateTimeEdit,
+    QDial,
+    QDoubleSpinBox,
+    QFontComboBox,
+    QLabel,
+    QLCDNumber,
+    QLineEdit,
+    QMainWindow,
+    QProgressBar,
+    QPushButton,
+    QRadioButton,
+    QSlider,
+    QSpinBox,
+    QTimeEdit,
+    QVBoxLayout,
+    QWidget
+)
+
 
 
 # Subclass QMainWindow to customize your application's main window
@@ -21,7 +45,7 @@ class MainWindow(QMainWindow):
         # WINDOW ----------------------------
         
         self.setWindowTitle("Ethogram Maker")
-        self.setFixedSize(QSize(400, 300))  # can't resize window now (.setMinimumSize())
+        self.setMinimumSize(QSize(400, 300))  # can't resize window now (.setFixedSize())
         
         # WIDGETS ---------------------------
         
@@ -34,13 +58,44 @@ class MainWindow(QMainWindow):
         self.input = QLineEdit()
         #self.input.textChanged.connect(self.label.setText)
         
+        self.image = QLabel()
+        self.image.setPixmap(QPixmap('../sample_outputs/OFT June 2021_19_ganttchart.png'))
+        self.image.setScaledContents(True) # resize with window
+        
+        self.comboBox = QComboBox()
+        self.comboBox.addItems(['One', 'Two', 'Three'])
+        self.comboBox.textActivated.connect(self.text_changed)
+        self.comboBox.currentIndexChanged.connect(self.index_changed)
+        self.comboBox.setEditable(True) # users can add item
+        self.comboBox.setInsertPolicy(QComboBox.InsertPolicy.InsertAtBottom)
+        self.comboBox.setMaxCount(10) # 10 items max
+        
+        widgets = [
+            self.input,
+            self.label,
+            self.button,
+            self.image,
+            QCheckBox(),        # check box
+            self.comboBox,      # drop down list box
+            QDial(),            # rotatable knob
+            QSpinBox(),         # integer spinner
+            QDoubleSpinBox(),   # a number spinner for floats
+            QFontComboBox(),    # list of fonts
+            QLCDNumber(),       # LCD display
+            QProgressBar(),     # progress bar
+            QRadioButton(),     # a toggle set, with only one active item
+            QSlider(),          # slider
+            QTimeEdit(),        # editting times
+            QDateEdit(),        # edit dates & datetimes
+            QDateTimeEdit()     # edit dates & datetimes
+        ]
+        
         # LAYOUT ----------------------------
         
         layout = QVBoxLayout()
-        layout.addWidget(self.input)
-        layout.addWidget(self.label)
-        layout.addWidget(self.button)
-        
+        for w in widgets:
+            layout.addWidget(w)
+
         container = QWidget()
         container.setLayout(layout)
         
@@ -57,6 +112,12 @@ class MainWindow(QMainWindow):
 
     def the_button_was_toggled(self, checked):
         print("CHECKED?", checked)
+        
+    def index_changed(self, i):  # i is an int    
+        print(i)    
+    
+    def text_changed(self, s):  # s is a string
+        print(s)
     
     # EVENTS -----------------------------------------------------------------
         
