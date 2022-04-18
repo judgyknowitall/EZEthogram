@@ -4,7 +4,7 @@ Created on Thu Mar 17 09:52:55 2022
 
 @author: Zahra Ghavasieh
 
-- on QListWidget
+- on QLineEdit
 https://www.pythonguis.com/tutorials/pyqt6-widgets/
 https://doc.qt.io/qt-5/index.html
 """
@@ -32,7 +32,8 @@ from PyQt6.QtWidgets import (
     QSpinBox,
     QTimeEdit,
     QVBoxLayout,
-    QWidget
+    QWidget,
+    QListWidget
 )
 
 
@@ -70,6 +71,10 @@ class MainWindow(QMainWindow):
         self.comboBox.setInsertPolicy(QComboBox.InsertPolicy.InsertAtBottom)
         self.comboBox.setMaxCount(10) # 10 items max
         
+        listWidget = QListWidget()
+        listWidget.addItems(['A', 'B', 'C'])
+        
+        
         widgets = [
             self.input,
             self.label,
@@ -77,6 +82,7 @@ class MainWindow(QMainWindow):
             self.image,
             QCheckBox(),        # check box
             self.comboBox,      # drop down list box
+            listWidget,         # list box (scrollable)
             QDial(),            # rotatable knob
             QSpinBox(),         # integer spinner
             QDoubleSpinBox(),   # a number spinner for floats
