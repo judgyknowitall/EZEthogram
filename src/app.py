@@ -7,7 +7,7 @@ Main Program
 """
 
 
-from PyQt6.QtCore import QSize
+from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QAction, QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
@@ -40,6 +40,11 @@ from PyQt6.QtWidgets import (
 
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
+    
+    timeMax = 10
+    timeMin = 5
+    timeStep = 1
+    
     def __init__(self):
         super().__init__()
         
@@ -50,9 +55,43 @@ class MainWindow(QMainWindow):
         
         # WIDGETS ---------------------------
         
-        timeMax_slider = QSlider()
-        timeMax_slider.setMinimum(5)
-        timeMax_slider.setMaximum(10)
+        self.image = QLabel()
+        self.image.setPixmap(QPixmap('../sample_outputs/OFT June 2021_19_ganttchart.png'))
+        self.image.setScaledContents(True) # resize with window
+        
+        self.timeMax_spinbox = QSpinBox()
+        self.timeMax_spinbox.setMinimum(self.timeMin)
+        self.timeMax_spinbox.setMaximum(self.timeMax)
+        self.timeMax_spinbox.setSingleStep(self.timeStep)
+        
+        self.timeMax_slider = QSlider(Qt.Orientation.Horizontal)
+        self.timeMax_slider.setMinimum(self.timeMin)
+        self.timeMax_slider.setMaximum(self.timeMax)
+        self.timeMax_slider.setSingleStep(self.timeStep)
+        self.timeMax_slider.sliderMoved.connect(self.timeMax_slider_moved)
+        
+        widgets = [
+            self.image,
+            self.timeMax_slider,
+            self.timeMax_spinbox
+        ]
+        
+        # LAYOUT ----------------------------
+        
+        layout = QVBoxLayout()
+        for w in widgets:
+            layout.addWidget(w)
+
+        container = QWidget()
+        container.setLayout(layout)
+        
+        self.setCentralWidget(container)
+        
+        
+    # SLOTS ------------------------------------------------------------------
+    
+    def timeMax_slider_moved(self, p):
+        self.timeMax_spinbox.setValue(p)
 
 
 
