@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         
         # WINDOW ----------------------------
         
-        self.setWindowTitle("Ethogram Maker")
+        self.setWindowTitle("EZ Ethogram")
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
         # WIDGETS ---------------------------
