@@ -4,7 +4,6 @@ Created on Thu Mar 17 09:52:55 2022
 
 @author: Zahra Ghavasieh
 
-- on QLineEdit
 https://www.pythonguis.com/tutorials/pyqt6-widgets/
 https://doc.qt.io/qt-5/index.html
 """
