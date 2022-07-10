@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+resources/fugue-icons-3.5.6.zip
+resources/fugue-icons-3.5.6/bonus/
+resources/fugue-icons-3.5.6/icons-shadowless/
+resources/fugue-icons-3.5.6/
