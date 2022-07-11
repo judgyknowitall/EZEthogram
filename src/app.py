@@ -8,33 +8,15 @@ Main Program
 
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QAction, QPixmap
+from PyQt6.QtGui import QAction, QPixmap, QIcon, QKeySequence
 from PyQt6.QtWidgets import (
-    QApplication,
-    QMenu,
-    QCheckBox,
-    QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QLabel,
-    QLCDNumber,
-    QLineEdit,
-    QMainWindow,
-    QProgressBar,
-    QPushButton,
-    QRadioButton,
-    QSlider,
-    QSpinBox,
-    QTimeEdit,
-    QVBoxLayout,
-    QWidget,
-    QListWidget
+    QApplication, QStatusBar, QMainWindow,
+    QLabel, QSlider, QSpinBox,
+    QVBoxLayout, QWidget,
 )
 
 
+iconPath = "../resources/fugue-icons-3.5.6/icons/"
 
 
 
@@ -52,6 +34,45 @@ class MainWindow(QMainWindow):
         
         self.setWindowTitle("EZ Ethogram")
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
+        
+        # QACTIONS -------------------------- #TODO
+        
+        # QAction
+        button_action = QAction(QIcon(iconPath+"bug.png"),"Your button", self)
+        button_action.setStatusTip("This is your button") # Explanation
+        button_action.setCheckable(True) # switch instead of button
+        # Qt.namespace identifiers (e.g. Qt.CTRL + Qt.Key_P)
+        # or system agnostic identifiers (e.g. QKeySequence.Print)
+        button_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Print))
+        button_action.triggered.connect(self.onMyToolBarButtonClick)
+        
+        button_action2 = QAction(QIcon(iconPath+"animal.png"), "Your &button2", self)
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        
+        # STATUS BAR -------------------------
+        
+        # Status Bar: Bottom bar that explains a QAction
+        self.setStatusBar(QStatusBar(self))
+        
+        # MENU BAR --------------------------- #TODO
+        
+        # Menu Bar
+        menu = self.menuBar()
+        
+        file_menu = menu.addMenu("&File") # Press ALT to select [File] (doesn't work on Macs)
+        file_menu.addAction(button_action)
+        file_menu.addSeparator()
+        file_menu.addAction(button_action2)
+        file_submenu = file_menu.addMenu("Submenu")
+        file_submenu.addAction(button_action2)
+        
+        edit_menu = menu.addMenu("Edit")
+        
+        
+        view_menu = menu.addMenu("View")
+        
         
         # WIDGETS ---------------------------
         
@@ -92,6 +113,10 @@ class MainWindow(QMainWindow):
     
     def timeMax_slider_moved(self, p):
         self.timeMax_spinbox.setValue(p)
+        
+            
+    def onMyToolBarButtonClick(self, s):
+        print("click", s)
 
 
 
