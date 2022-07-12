@@ -4,6 +4,7 @@ Created on Mon Apr 18 10:40:54 2022
 @author: Zahra Ghavasieh
 
 Main Program
+https://www.pythonguis.com/pyqt6-tutorial/
 """
 
 
@@ -14,6 +15,8 @@ from PyQt6.QtWidgets import (
     QLabel, QSlider, QSpinBox,
     QVBoxLayout, QWidget,
 )
+
+from EventsWindow import EventsWindow
 
 
 iconPath = "../resources/fugue-icons-3.5.6/icons/"
@@ -74,6 +77,11 @@ class MainWindow(QMainWindow):
         view_menu = menu.addMenu("View")
         
         
+        # Events Window ---------------------
+        
+        eventsWindow = EventsWindow(self)
+        
+        
         # WIDGETS ---------------------------
         
         self.image = QLabel()
@@ -123,6 +131,7 @@ class MainWindow(QMainWindow):
 def main():
     
     app = QApplication([])
+    app.setStyle('Breeze')
     window = MainWindow()
     window.show()
     
