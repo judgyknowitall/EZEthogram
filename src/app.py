@@ -9,14 +9,13 @@ https://www.pythonguis.com/pyqt6-tutorial/
 
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QAction, QPixmap, QIcon, QKeySequence
+from PyQt6.QtGui import QAction, QIcon, QKeySequence
 from PyQt6.QtWidgets import (
-    QApplication, QStatusBar, QMainWindow,
-    QLabel, QSlider, QSpinBox,
-    QVBoxLayout, QWidget,
+    QApplication, QMainWindow, QStatusBar, QToolBar
 )
 
 from EventsWindow import EventsWindow
+from canvas import Canvas
 
 
 iconPath = "../resources/fugue-icons-3.5.6/icons/"
@@ -26,105 +25,107 @@ iconPath = "../resources/fugue-icons-3.5.6/icons/"
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
     
-    timeMax = 10
-    timeMin = 5
-    timeStep = 1
-    
     def __init__(self):
         super().__init__()
+        
         
         # WINDOW ----------------------------
         
         self.setWindowTitle("EZ Ethogram")
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
-        # QACTIONS -------------------------- #TODO
-        
-        # QAction
-        button_action = QAction(QIcon(iconPath+"bug.png"),"Your button", self)
-        button_action.setStatusTip("This is your button") # Explanation
-        button_action.setCheckable(True) # switch instead of button
-        # Qt.namespace identifiers (e.g. Qt.CTRL + Qt.Key_P)
-        # or system agnostic identifiers (e.g. QKeySequence.Print)
-        button_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Print))
-        button_action.triggered.connect(self.onMyToolBarButtonClick)
-        
-        button_action2 = QAction(QIcon(iconPath+"animal.png"), "Your &button2", self)
-        button_action2.setStatusTip("This is your button2")
-        button_action2.triggered.connect(self.onMyToolBarButtonClick)
-        button_action2.setCheckable(True)
-        
-        # STATUS BAR -------------------------
-        
         # Status Bar: Bottom bar that explains a QAction
         self.setStatusBar(QStatusBar(self))
         
-        # MENU BAR --------------------------- #TODO
+        
+        
+        # QACTIONS -------------------------- #TODO action functions, icons
+        
+        # File actions
+        newFile_action = self.createAction("New File", function= self.onMyToolBarButtonClick)
+        saveFile_action = self.createAction("Save", function= self.onMyToolBarButtonClick)
+        saveFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Save))
+        exportFile_action = self.createAction("Export File", function= self.onMyToolBarButtonClick)
+        exportFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Print))
+        
+        # Edit actions
+        newEvent_action = self.createAction("New Event", function= self.onMyToolBarButtonClick)
+        importEvent_action = self.createAction("Import Events", function= self.onMyToolBarButtonClick)
+        editEvents_action = self.createAction("Edit Events", function= self.onMyToolBarButtonClick)
+        editPalette_action = self.createAction("Edit Palette", function= self.onMyToolBarButtonClick)
+        editTimeline_action = self.createAction("Edit Timeline", function= self.onMyToolBarButtonClick)
+        
+        
+        # View actions
+        viewGrid_action = self.createAction("View Grid", function= self.onMyToolBarButtonClick)
+        viewGrid_action.setCheckable(True) # Togglable
+        
+        
+        
+        # MENU BAR ---------------------------
         
         # Menu Bar
         menu = self.menuBar()
         
+        # File
         file_menu = menu.addMenu("&File") # Press ALT to select [File] (doesn't work on Macs)
-        file_menu.addAction(button_action)
-        file_menu.addSeparator()
-        file_menu.addAction(button_action2)
-        file_submenu = file_menu.addMenu("Submenu")
-        file_submenu.addAction(button_action2)
+        file_menu.addActions([newFile_action, saveFile_action, exportFile_action])
         
+        # Edit
         edit_menu = menu.addMenu("Edit")
+        edit_menu.addActions([newEvent_action, importEvent_action])
+        edit_menu.addSeparator()
+        edit_menu.addActions([editEvents_action, editPalette_action, editTimeline_action])
         
-        
+        # View
         view_menu = menu.addMenu("View")
+        view_menu.addAction(viewGrid_action)
         
         
-        # Events Window ---------------------
+        
+        # TOOL BAR --------------------------- #TODO icons only
+        
+        toolbar = QToolBar("Main toolbar")
+        toolbar.setIconSize(QSize(16,16))
+        toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
+        self.addToolBar(toolbar)
+         
+        toolbar.addActions([newFile_action, exportFile_action, saveFile_action])
+        toolbar.addSeparator()
+        toolbar.addActions([importEvent_action, newEvent_action, editEvents_action])
+        toolbar.addSeparator()
+        toolbar.addActions([editPalette_action, editTimeline_action])
+        
+        
+        
+        # EVENTS DOCKING WINDOW -------------
         
         eventsWindow = EventsWindow(self)
         
         
-        # WIDGETS ---------------------------
         
-        self.image = QLabel()
-        self.image.setPixmap(QPixmap('../sample_outputs/OFT June 2021_19_ganttchart.png'))
-        self.image.setScaledContents(True) # resize with window
+        # CANVAS ----------------------------
         
-        self.timeMax_spinbox = QSpinBox()
-        self.timeMax_spinbox.setMinimum(self.timeMin)
-        self.timeMax_spinbox.setMaximum(self.timeMax)
-        self.timeMax_spinbox.setSingleStep(self.timeStep)
+        self.canvas = Canvas()
+        self.setCentralWidget(self.canvas)
         
-        self.timeMax_slider = QSlider(Qt.Orientation.Horizontal)
-        self.timeMax_slider.setMinimum(self.timeMin)
-        self.timeMax_slider.setMaximum(self.timeMax)
-        self.timeMax_slider.setSingleStep(self.timeStep)
-        self.timeMax_slider.sliderMoved.connect(self.timeMax_slider_moved)
         
-        widgets = [
-            self.image,
-            self.timeMax_slider,
-            self.timeMax_spinbox
-        ]
         
-        # LAYOUT ----------------------------
-        
-        layout = QVBoxLayout()
-        for w in widgets:
-            layout.addWidget(w)
-
-        container = QWidget()
-        container.setLayout(layout)
-        
-        self.setCentralWidget(container)
         
         
     # SLOTS ------------------------------------------------------------------
-    
-    def timeMax_slider_moved(self, p):
-        self.timeMax_spinbox.setValue(p)
-        
-            
+
     def onMyToolBarButtonClick(self, s):
         print("click", s)
+        
+    # Utility function to create a QAction
+    def createAction(self, name, iconFile="bug.png", function=None):
+        action = QAction(QIcon(iconPath+iconFile), name, self)
+        action.setStatusTip(name)
+        if function != None:
+            action.triggered.connect(function)
+        return action
+        
 
 
 

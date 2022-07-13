@@ -41,5 +41,7 @@ class EventsWindow(QDockWidget):
          for w in widgets:
              layout.addWidget(w)
          
-         self.setLayout(layout) #TODO: doesn't show
+         self.setWidget(layout) #TODO: doesn't show
+         
+         
          
