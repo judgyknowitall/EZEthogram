@@ -26,13 +26,32 @@ from PyQt6.QtWidgets import (
 
 class EventsWindow(QDockWidget):
      def __init__(self, parent=None):
-         super().__init__(parent)
-         self.setWindowTitle("Events")
+         super().__init__("Events", parent)
          
-         self.newEvent_btn = QPushButton(QIcon(iconPath+"calculator--plus.png"), "New Event")
+         # DOCK WINDOW -----------------------
+
+         self.setBaseSize(QSize(200, 500))
+         self.setMinimumSize(QSize(100,100))
+         
+         self.setFloating(False)
+         self.setAllowedAreas(
+             Qt.DockWidgetArea.BottomDockWidgetArea | 
+             Qt.DockWidgetArea.LeftDockWidgetArea |
+             Qt.DockWidgetArea.RightDockWidgetArea)
+         self.setFeatures(
+             self.DockWidgetFeature.DockWidgetMovable |
+             self.DockWidgetFeature.DockWidgetFloatable
+             )
+
+         
+         # WIDGETS ---------------------------
+         
+         newEvent_btn = QPushButton(QIcon(iconPath+"calculator--plus.png"), "New Event")
+         newEvent_btn.clicked.connect(self.onButtonClick)
+         
          
          widgets = [
-             self.newEvent_btn
+             newEvent_btn
              ]
          
          # LAYOUT ----------------------------
@@ -41,7 +60,14 @@ class EventsWindow(QDockWidget):
          for w in widgets:
              layout.addWidget(w)
          
-         self.setWidget(layout) #TODO: doesn't show
+         container = QWidget()
+         container.setLayout(layout)
+         self.setWidget(container)
          
+         
+         # SLOTS ------------------------------------------------------------------
+         
+         def onButtonClick(self, s):
+             print("Events Window: click", s)
          
          

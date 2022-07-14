@@ -32,6 +32,7 @@ class MainWindow(QMainWindow):
         # WINDOW ----------------------------
         
         self.setWindowTitle("EZ Ethogram")
+        #self.setWindowIcon()   # TODO
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
         # Status Bar: Bottom bar that explains a QAction
@@ -59,6 +60,8 @@ class MainWindow(QMainWindow):
         # View actions
         viewGrid_action = self.createAction("View Grid", function= self.onMyToolBarButtonClick)
         viewGrid_action.setCheckable(True) # Togglable
+        viewEventsWindow_action = self.createAction("Events Window", function= self.toggleEventsWindow)
+        viewEventsWindow_action.setCheckable(True)
         
         
         
@@ -79,6 +82,8 @@ class MainWindow(QMainWindow):
         
         # View
         view_menu = menu.addMenu("View")
+        view_menu.addAction(viewEventsWindow_action)
+        view_menu.addSeparator()
         view_menu.addAction(viewGrid_action)
         
         
@@ -100,8 +105,10 @@ class MainWindow(QMainWindow):
         
         # EVENTS DOCKING WINDOW -------------
         
-        eventsWindow = EventsWindow(self)
-        
+        self.eventsWindow = EventsWindow(self)
+        self.addDockWidget(
+            Qt.DockWidgetArea.RightDockWidgetArea, self.eventsWindow
+            )
         
         
         # CANVAS ----------------------------
@@ -111,12 +118,7 @@ class MainWindow(QMainWindow):
         
         
         
-        
-        
-    # SLOTS ------------------------------------------------------------------
-
-    def onMyToolBarButtonClick(self, s):
-        print("click", s)
+    # UTIL -------------------------------------------------------------------
         
     # Utility function to create a QAction
     def createAction(self, name, iconFile="bug.png", function=None):
@@ -125,20 +127,29 @@ class MainWindow(QMainWindow):
         if function != None:
             action.triggered.connect(function)
         return action
+    
+    
+    # SLOTS ------------------------------------------------------------------
+    
+    def onMyToolBarButtonClick(self, s):
+        print("ToolBar: click", s)
+        
+        
+    # Toggle Events Window
+    def toggleEventsWindow(self, s):
+        if self.eventsWindow.isVisible():
+            self.eventsWindow.setHidden(True)
+        else:
+            self.eventsWindow.setVisible(True)
         
 
 
 
-def main():
+if __name__ == '__main__':
     
     app = QApplication([])
     app.setStyle('Breeze')
     window = MainWindow()
     window.show()
     
-    app.exec()
-
-
-
-if __name__ == '__main__':
-    main()   
+    app.exec()   
