@@ -21,8 +21,23 @@ from PyQt6.QtGui import QAction, QPixmap, QIcon, QKeySequence
 from PyQt6.QtWidgets import (
     QApplication, QStatusBar, QMainWindow,
     QLabel, QSlider, QSpinBox, QPushButton,
-    QVBoxLayout, QWidget, QDockWidget
+    QVBoxLayout, QWidget, QDockWidget, QGridLayout, QFrame
 )
+
+
+class IconWidget(QWidget):
+    def __init__(self, icon= 'bug.png'):
+        super().__init__()
+        
+        ic = QLabel()
+        ic.setPixmap(QPixmap(iconPath + icon))
+        #ic.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        layout = QVBoxLayout()
+        layout.addWidget(ic)
+        self.setLayout(layout)
+
+
 
 class EventsWindow(QDockWidget):
      def __init__(self, parent=None):
@@ -46,6 +61,24 @@ class EventsWindow(QDockWidget):
          
          # WIDGETS ---------------------------
          
+         events_desc = [
+             "Rearing (U)", "Rearing (S)", "No Movement", 
+             "Locomotion", "In Place Activity", "Grooming"
+             ]
+         
+
+         events_gridLayout = QGridLayout()
+         events_gridLayout.addWidget(IconWidget("animal.png"), 0, 1) # view
+         events_gridLayout.addWidget(IconWidget("animal.png"), 0, 2) # edit colour
+         
+         row = 1
+         for event in events_desc:
+             events_gridLayout.addWidget(QLabel(event), row, 0)
+             events_gridLayout.addWidget(IconWidget(), row, 1)
+             events_gridLayout.addWidget(IconWidget(), row, 2)
+             row = row+1
+         
+         
          newEvent_btn = QPushButton(QIcon(iconPath+"calculator--plus.png"), "New Event")
          newEvent_btn.clicked.connect(self.onButtonClick)
          
@@ -57,17 +90,19 @@ class EventsWindow(QDockWidget):
          # LAYOUT ----------------------------
          
          layout = QVBoxLayout()
+         layout.addLayout(events_gridLayout)
          for w in widgets:
              layout.addWidget(w)
          
-         container = QWidget()
+         container = QFrame()
          container.setLayout(layout)
+         container.setLineWidth(2)
          self.setWidget(container)
          
          
-         # SLOTS ------------------------------------------------------------------
+     # SLOTS ------------------------------------------------------------------
          
-         def onButtonClick(self, s):
-             print("Events Window: click", s)
+     def onButtonClick(self):
+         print("Events Window: click")
          
          

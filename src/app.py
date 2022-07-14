@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         # WINDOW ----------------------------
         
         self.setWindowTitle("EZ Ethogram")
-        #self.setWindowIcon()   # TODO
+        self.setWindowIcon(QIcon(iconPath+"bug.png"))   # TODO
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
         # Status Bar: Bottom bar that explains a QAction
@@ -149,6 +149,7 @@ if __name__ == '__main__':
     
     app = QApplication([])
     app.setStyle('Breeze')
+    app.setWindowIcon(QIcon(iconPath+"bug.png"))
     window = MainWindow()
     window.show()
     
