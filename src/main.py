@@ -16,9 +16,7 @@ from PyQt6.QtWidgets import (
 
 from EventsWindow import EventsWindow
 from canvas import Canvas
-
-
-iconPath = "../resources/fugue-icons-3.5.6/icons/"
+from constant import EZIcon
 
 
 
@@ -32,7 +30,7 @@ class MainWindow(QMainWindow):
         # WINDOW ----------------------------
         
         self.setWindowTitle("EZ Ethogram")
-        self.setWindowIcon(QIcon(iconPath+"bug.png"))   # TODO
+        self.setWindowIcon(QIcon(EZIcon.bug))   # TODO
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
         # Status Bar: Bottom bar that explains a QAction
@@ -63,6 +61,8 @@ class MainWindow(QMainWindow):
         viewEventsWindow_action = self.createAction("Events Window", function= self.toggleEventsWindow)
         viewEventsWindow_action.setCheckable(True)
         
+        # Intercept signal (all connected functions will trigger!)
+        #action.triggered.connect( lambda checked: self.handle_trigger(checked, <args>) )
         
         
         # MENU BAR ---------------------------
@@ -121,8 +121,8 @@ class MainWindow(QMainWindow):
     # UTIL -------------------------------------------------------------------
         
     # Utility function to create a QAction
-    def createAction(self, name, iconFile="bug.png", function=None):
-        action = QAction(QIcon(iconPath+iconFile), name, self)
+    def createAction(self, name, icon=EZIcon.bug, function=None):
+        action = QAction(QIcon(icon), name, self)
         action.setStatusTip(name)
         if function != None:
             action.triggered.connect(function)
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     
     app = QApplication([])
     app.setStyle('Breeze')
-    app.setWindowIcon(QIcon(iconPath+"bug.png"))
+
     window = MainWindow()
     window.show()
     
