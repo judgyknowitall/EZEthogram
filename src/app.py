@@ -149,7 +149,6 @@ if __name__ == '__main__':
     
     app = QApplication([])
     app.setStyle('Breeze')
-    app.setWindowIcon(QIcon(iconPath+"bug.png"))
     window = MainWindow()
     window.show()
     
