@@ -13,8 +13,6 @@ Reference:
     - https://doc.qt.io/qtforpython/PySide6/QtWidgets/QDockWidget.html
 """
 
-iconPath = "../resources/fugue-icons-3.5.6/icons/"
-
 
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QAction, QPixmap, QIcon, QKeySequence
@@ -24,13 +22,15 @@ from PyQt6.QtWidgets import (
     QVBoxLayout, QWidget, QDockWidget, QGridLayout, QFrame
 )
 
+from constant import EZIcon
+
 
 class IconWidget(QWidget):
-    def __init__(self, icon= 'bug.png'):
+    def __init__(self, icon= EZIcon.bug):
         super().__init__()
         
         ic = QLabel()
-        ic.setPixmap(QPixmap(iconPath + icon))
+        ic.setPixmap(QPixmap(icon))
         #ic.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         layout = QVBoxLayout()
@@ -68,8 +68,8 @@ class EventsWindow(QDockWidget):
          
 
          events_gridLayout = QGridLayout()
-         events_gridLayout.addWidget(IconWidget("animal.png"), 0, 1) # view
-         events_gridLayout.addWidget(IconWidget("animal.png"), 0, 2) # edit colour
+         events_gridLayout.addWidget(IconWidget(EZIcon.animal), 0, 1) # view
+         events_gridLayout.addWidget(IconWidget(EZIcon.animal), 0, 2) # edit colour
          
          row = 1
          for event in events_desc:
@@ -79,7 +79,7 @@ class EventsWindow(QDockWidget):
              row = row+1
          
          
-         newEvent_btn = QPushButton(QIcon(iconPath+"calculator--plus.png"), "New Event")
+         newEvent_btn = QPushButton(QIcon(EZIcon.bug), "New Event")
          newEvent_btn.clicked.connect(self.onButtonClick)
          
          
