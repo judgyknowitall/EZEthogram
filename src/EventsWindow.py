@@ -30,7 +30,7 @@ class IconWidget(QWidget):
         super().__init__()
         
         ic = QLabel()
-        ic.setPixmap(QPixmap(icon))
+        ic.setPixmap(QPixmap(icon).scaled(16,16,Qt.AspectRatioMode.KeepAspectRatio))
         #ic.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         layout = QVBoxLayout()
@@ -68,14 +68,13 @@ class EventsWindow(QDockWidget):
          
 
          events_gridLayout = QGridLayout()
-         events_gridLayout.addWidget(IconWidget(EZIcon.animal), 0, 1) # view
-         events_gridLayout.addWidget(IconWidget(EZIcon.animal), 0, 2) # edit colour
          
-         row = 1
+         row = 0
          for event in events_desc:
-             events_gridLayout.addWidget(QLabel(event), row, 0)
-             events_gridLayout.addWidget(IconWidget(), row, 1)
-             events_gridLayout.addWidget(IconWidget(), row, 2)
+             #TODO: make icon buttons instead
+             events_gridLayout.addWidget(IconWidget(icon= EZIcon.eye), row, 0)      # View
+             events_gridLayout.addWidget(IconWidget(icon= EZIcon.square), row, 1)   # Colour
+             events_gridLayout.addWidget(QLabel(event), row, 2)                     # Behaviour name
              row = row+1
          
          

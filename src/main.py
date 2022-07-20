@@ -30,7 +30,7 @@ class MainWindow(QMainWindow):
         # WINDOW ----------------------------
         
         self.setWindowTitle("EZ Ethogram")
-        self.setWindowIcon(QIcon(EZIcon.bug))   # TODO
+        self.setWindowIcon(QIcon(EZIcon.logo))   # TODO
         self.setMinimumSize(QSize(800, 500))  # can't resize window now (.setFixedSize())
         
         # Status Bar: Bottom bar that explains a QAction
@@ -41,18 +41,21 @@ class MainWindow(QMainWindow):
         # QACTIONS -------------------------- #TODO action functions, icons
         
         # File actions
-        newFile_action = self.createAction("New File", function= self.onMyToolBarButtonClick)
-        saveFile_action = self.createAction("Save", function= self.onMyToolBarButtonClick)
+        newFile_action = self.createAction("New File", icon= EZIcon.newFile, function= self.onMyToolBarButtonClick)
+        newFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.New))
+        openFile_action = self.createAction("Open File", icon= EZIcon.openFile, function= self.onMyToolBarButtonClick)
+        openFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Open))
+        saveFile_action = self.createAction("Save", icon= EZIcon.saveFile, function= self.onMyToolBarButtonClick)
         saveFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Save))
-        exportFile_action = self.createAction("Export File", function= self.onMyToolBarButtonClick)
+        exportFile_action = self.createAction("Export File", icon= EZIcon.export, function= self.onMyToolBarButtonClick)
         exportFile_action.setShortcut(QKeySequence(QKeySequence.StandardKey.Print))
         
         # Edit actions
-        newEvent_action = self.createAction("New Event", function= self.onMyToolBarButtonClick)
-        importEvent_action = self.createAction("Import Events", function= self.onMyToolBarButtonClick)
-        editEvents_action = self.createAction("Edit Events", function= self.onMyToolBarButtonClick)
-        editPalette_action = self.createAction("Edit Palette", function= self.onMyToolBarButtonClick)
-        editTimeline_action = self.createAction("Edit Timeline", function= self.onMyToolBarButtonClick)
+        addEvent_action = self.createAction("Add Event", icon= EZIcon.addEvent, function= self.onMyToolBarButtonClick)
+        importEvent_action = self.createAction("Import Events", icon= EZIcon.importEvent, function= self.onMyToolBarButtonClick)
+        editEvents_action = self.createAction("Edit Events", icon= EZIcon.editEvent, function= self.onMyToolBarButtonClick)
+        editPalette_action = self.createAction("Edit Palette", icon= EZIcon.editPalette, function= self.onMyToolBarButtonClick)
+        editTimeline_action = self.createAction("Edit Timeline", icon= EZIcon.timeline, function= self.onMyToolBarButtonClick)
         
         
         # View actions
@@ -72,11 +75,11 @@ class MainWindow(QMainWindow):
         
         # File
         file_menu = menu.addMenu("&File") # Press ALT to select [File] (doesn't work on Macs)
-        file_menu.addActions([newFile_action, saveFile_action, exportFile_action])
+        file_menu.addActions([newFile_action, openFile_action, saveFile_action, exportFile_action])
         
         # Edit
         edit_menu = menu.addMenu("Edit")
-        edit_menu.addActions([newEvent_action, importEvent_action])
+        edit_menu.addActions([addEvent_action, importEvent_action])
         edit_menu.addSeparator()
         edit_menu.addActions([editEvents_action, editPalette_action, editTimeline_action])
         
@@ -91,13 +94,13 @@ class MainWindow(QMainWindow):
         # TOOL BAR --------------------------- #TODO icons only
         
         toolbar = QToolBar("Main toolbar")
-        toolbar.setIconSize(QSize(16,16))
-        toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
+        toolbar.setIconSize(QSize(32,32))
+        toolbar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.addToolBar(toolbar)
          
-        toolbar.addActions([newFile_action, exportFile_action, saveFile_action])
+        toolbar.addActions([newFile_action, openFile_action, saveFile_action, exportFile_action])
         toolbar.addSeparator()
-        toolbar.addActions([importEvent_action, newEvent_action, editEvents_action])
+        toolbar.addActions([importEvent_action, addEvent_action, editEvents_action])
         toolbar.addSeparator()
         toolbar.addActions([editPalette_action, editTimeline_action])
         
