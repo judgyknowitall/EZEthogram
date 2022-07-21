@@ -15,33 +15,21 @@ Reference:
 
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QAction, QPixmap, QIcon, QKeySequence
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
-    QApplication, QStatusBar, QMainWindow,
-    QLabel, QSlider, QSpinBox, QPushButton,
-    QVBoxLayout, QWidget, QDockWidget, QGridLayout, QFrame
+    QLabel, QPushButton, QVBoxLayout, QDockWidget, QGridLayout, QFrame
 )
 
 from constant import EZIcon
-
-
-class IconWidget(QWidget):
-    def __init__(self, icon= EZIcon.bug):
-        super().__init__()
-        
-        ic = QLabel()
-        ic.setPixmap(QPixmap(icon).scaled(16,16,Qt.AspectRatioMode.KeepAspectRatio))
-        #ic.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        layout = QVBoxLayout()
-        layout.addWidget(ic)
-        self.setLayout(layout)
+from backend.controller import Controller
 
 
 
 class EventsWindow(QDockWidget):
-     def __init__(self, parent=None):
+    
+     def __init__(self, control: Controller, parent=None):
          super().__init__("Events", parent)
+         self.control = control
          
          # DOCK WINDOW -----------------------
 
@@ -61,37 +49,37 @@ class EventsWindow(QDockWidget):
          
          # WIDGETS ---------------------------
          
-         events_desc = [
-             "Rearing (U)", "Rearing (S)", "No Movement", 
-             "Locomotion", "In Place Activity", "Grooming"
-             ]
-         
-
          events_gridLayout = QGridLayout()
          
          row = 0
-         for event in events_desc:
-             #TODO: make icon buttons instead
-             events_gridLayout.addWidget(IconWidget(icon= EZIcon.eye), row, 0)      # View
-             events_gridLayout.addWidget(IconWidget(icon= EZIcon.square), row, 1)   # Colour
-             events_gridLayout.addWidget(QLabel(event), row, 2)                     # Behaviour name
+         for behaviour in self.control.project.behaviours:
+             
+             # View
+             view_btn = QPushButton(QIcon(EZIcon.eye),'')
+             view_btn.clicked.connect(lambda s,b=behaviour: self.control.toggleBehaviourView(s, b))
+             view_btn.setCheckable(True)
+             events_gridLayout.addWidget(view_btn, row, 0)      
+             
+             # Colour
+             clr_btn = QPushButton(QIcon(EZIcon.square),'')
+             clr_btn.clicked.connect(lambda s, b=behaviour: self.control.editBehaviourColour(b))
+             events_gridLayout.addWidget(clr_btn, row, 1)
+             
+             # Behaviour Name
+             events_gridLayout.addWidget(QLabel(behaviour.name), row, 2)
              row = row+1
          
-         
+            
+         # New Event
          newEvent_btn = QPushButton(QIcon(EZIcon.bug), "New Event")
-         newEvent_btn.clicked.connect(self.onButtonClick)
-         
-         
-         widgets = [
-             newEvent_btn
-             ]
+         newEvent_btn.clicked.connect(self.control.newEvent)
+
          
          # LAYOUT ----------------------------
          
          layout = QVBoxLayout()
          layout.addLayout(events_gridLayout)
-         for w in widgets:
-             layout.addWidget(w)
+         layout.addWidget(newEvent_btn)
          
          container = QFrame()
          container.setLayout(layout)

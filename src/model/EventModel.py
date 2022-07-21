@@ -9,13 +9,12 @@ Event Class Model
 
 class Event:
     
-    def __init__(self, start, end, colour= "blue"):
+    def __init__(self, start, length):
         
         # Errors
-        if (end < start):
+        if (length < 0):
             raise Exception("End time is before start time!")
         
         self.start = start
-        self.end = end
-        self.colour = colour
+        self.length = length
         

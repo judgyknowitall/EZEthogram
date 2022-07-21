@@ -7,14 +7,14 @@ Created on Fri Jul 15 12:24:59 2022
 Behaviour Class Model
 """
 
-from EventModel import Event
+from model.EventModel import Event
 
 class Behaviour:
-    
-    events = []
-    
-    def __init__(self, name: str):
+
+    def __init__(self, name: str, events:[Event] = [], colour = "blue"):
         self.name = name    # Behaviour name
+        self.events = events
+        self.colour = colour
         
     
     def addEvent(self, event: Event):

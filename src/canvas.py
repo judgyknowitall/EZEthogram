@@ -14,58 +14,37 @@ Reference:
 
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPalette, QColor, QPixmap
 from PyQt6.QtWidgets import (
-    QApplication, 
-    QMainWindow, 
-    QWidget, 
-    QLabel, 
-    QVBoxLayout, 
-    QHBoxLayout,
-    QGridLayout,
-    QStackedLayout,
-    QSlider, QSpinBox
-    )
+    QWidget, QVBoxLayout, QSlider, QSpinBox
+)
+
+from frontend.ethogramPlot import EthogramPlot
+from backend.controller import Controller
+
+
+    
 
 
 
-
-
-# Custom Widget to display layout colours
-class Color(QWidget):
-
-    def __init__(self, color, text=''):
-        super(Color, self).__init__()
-        self.setAutoFillBackground(True)
-
-        palette = self.palette()
-        palette.setColor(QPalette.ColorRole.Window, QColor(color))
-        self.setPalette(palette)
-        
-        txt = QLabel(str(text))
-        txt.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        txt.setStyleSheet("font-weight: bold; color: white")
-        layout = QVBoxLayout()
-        layout.addWidget(txt)
-        self.setLayout(layout)
-        
-        
-        
-        
 class Canvas(QWidget):
     
     timeMax = 10
     timeMin = 5
     timeStep = 1
     
-    def __init__ (self):
+    def __init__ (self, control:Controller):
         super().__init__()
+        self.control = control
         
         # WIDGETS ---------------------------
-        
+        '''
         self.image = QLabel()
         self.image.setPixmap(QPixmap('../sample_outputs/OFT June 2021_19_ganttchart.png'))
         self.image.setScaledContents(True) # resize with window
+        '''
+        
+        self.control.setPlot(self)
+        
         
         self.timeMax_spinbox = QSpinBox()
         self.timeMax_spinbox.setMinimum(self.timeMin)
@@ -79,7 +58,8 @@ class Canvas(QWidget):
         self.timeMax_slider.sliderMoved.connect(self.timeMax_slider_moved)
         
         widgets = [
-            self.image,
+            #self.image,
+            self.control.ethogram,
             self.timeMax_slider,
             self.timeMax_spinbox
         ]
