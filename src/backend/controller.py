@@ -14,6 +14,7 @@ from model.ProjectModel import Project
 from model.BehaviourModel import Behaviour
 from frontend.ethogramPlot import EthogramPlot
 from backend.importFile import importFile
+from constant import FileFormat
 
 from PyQt6.QtWidgets import (
     QFileDialog, QColorDialog
@@ -53,8 +54,12 @@ class Controller:
     
     
     # Export Plot
-    def export(self, s):
-        self.ethogram.exportPlot(self.project.name, outputPath= self.project.path)
+    def export(self, s, parent=None):
+        imagePath = self.project.path + self.project.name
+        fileFormats = ";; ".join([FileFormat.png, FileFormat.pdf, FileFormat.ps, FileFormat.eps, FileFormat.svg])
+        fname = QFileDialog.getSaveFileName(parent, 'Save Ethogram', imagePath, fileFormats, FileFormat.svg)
+        if fname[0]:
+            self.ethogram.exportPlot(fname[0])
         
         
         

@@ -77,4 +77,18 @@ class EZIcon:
         
         self.palette = self.iconPath + "palette" + self.ext
 
+ 
+
+class FileFormat:
         
+    svg = "Scalable Vector Graphics (*.svg)"
+    png = "Portable Network Graphic (*.png)"
+    pdf = "Portable Document Format (*.pdf)"
+    ps = "Postscript (*.ps)"
+    eps = "Encapsulated PostScript (*.eps)"
+
+
+
+
+
+       

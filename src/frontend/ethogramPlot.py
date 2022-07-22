@@ -70,12 +70,7 @@ class EthogramPlot(FigureCanvasQTAgg):
         self.draw()
         
         
-    def exportPlot(self, filename:str, outputPath='../out/', ext = '.png'):
-        
-        if not os.path.exists(outputPath):
-            os.mkdir(outputPath)
-        
-        path = os.path.join(outputPath, filename + ext)
-        plt.savefig(path, bbox_inches='tight')
-        print("File Saved at:", os.path.abspath(path))
+    def exportPlot(self, filepath:str):
+        plt.savefig(filepath, bbox_inches='tight')
+        print("File Saved at:", os.path.abspath(filepath))
     
