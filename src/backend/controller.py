@@ -87,7 +87,7 @@ class Controller:
      
      
     def viewGrid(self, s):
-        print("VIEW GRID?", s) #TODO
+        self.ethogram.viewGrid(s)
         
     
     # Show / hide Events-Window

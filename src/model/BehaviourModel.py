@@ -15,4 +15,4 @@ class Behaviour:
         self.name = name    # Behaviour name
         self.events = events
         self.colour = colour
-        
+        self.isVisible = True

@@ -49,26 +49,32 @@ class EthogramPlot(FigureCanvasQTAgg):
         # Setting ticks on y-axis
         plt.yticks([ (i*10)+5 for i in range(len(proj.behaviours))], [b.name for b in proj.behaviours])
     
-    
         # Setting ticks on x-axis
         plt.xticks(range(0, xmax+1, xmax // 5))
     
-         
-        # Setting graph attribute
-        #plt.grid(True,axis='x')
         
         # Declare bars in chart
         for i in range(len(proj.behaviours)):
             
-            # Get all occurrences of the event and draw its bars
-            occurrences = proj.behaviours[i].events
-            broken_bars = [(e.start, e.length) for e in occurrences]
-            plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].colour))
+            if (proj.behaviours[i].isVisible):
+            
+                # Get all occurrences of the event and draw its bars
+                occurrences = proj.behaviours[i].events
+                broken_bars = [(e.start, e.length) for e in occurrences]
+                plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].colour))
+    
     
         #plt.close(self.fig) # Extra Plot? TODO
         self.draw()
         
-        
+    # SHOW GRID ---------------------------------------------------------------
+    
+    def viewGrid(self, isVisible : bool):
+        plt.grid(isVisible, axis='xy')
+
+    
+    # EXPORT ------------------------------------------------------------------
+    
     def exportPlot(self, filepath:str):
         plt.savefig(filepath, bbox_inches='tight')
         print("File Saved at:", os.path.abspath(filepath))

@@ -1,8 +1,6 @@
-# EZ Ethogram
-
 ![EZ Ethogram](assets/EZEthogram.png)
 
-Application to create Ethograms based on input behaviours
+An application to create Ethograms based on input behaviours (eg. Cleversys, BORIS)
 
 ---
 
