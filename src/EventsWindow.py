@@ -70,17 +70,12 @@ class EventsWindow(QDockWidget):
              events_gridLayout.addWidget(QLabel(behaviour.name), row, 2)
              row = row+1
          
-            
-         # New Event
-         newEvent_btn = QPushButton(QIcon(EZIcon.bug), "New Event")
-         newEvent_btn.clicked.connect(self.control.newEvent)
 
          
          # LAYOUT ----------------------------
          
          layout = QVBoxLayout()
          layout.addLayout(events_gridLayout)
-         layout.addWidget(newEvent_btn)
          
          container = QFrame()
          container.setLayout(layout)

@@ -62,7 +62,6 @@ class EthogramPlot(FigureCanvasQTAgg):
             
             # Get all occurrences of the event and draw its bars
             occurrences = proj.behaviours[i].events
-            print("\t- Found " + str(len(occurrences)) + " occurrences of " + proj.behaviours[i].name ) #TODO remove
             broken_bars = [(e.start, e.length) for e in occurrences]
             plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].colour))
     

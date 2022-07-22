@@ -112,10 +112,6 @@ class Controller:
         if col.isValid():
             print(col.getRgb())
         
-    
-    def newEvent(self, s):
-        print("NEW EVENT") #TODO
-        
         
         
     # CANVAS FUNCTIONS --------------------------
@@ -124,6 +120,8 @@ class Controller:
     def setPlot(self, parent=None):
         self.ethogram = EthogramPlot(parent)
         self.ethogram.drawPlot(self.project)
+    
+    
     
     
     def onMyToolBarButtonClick(self, s):

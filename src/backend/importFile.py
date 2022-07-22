@@ -36,6 +36,7 @@ def importCleversys(filename : str):
 
 
 
+
 # Import Boris CSV file
 def importBoris(filename : str):
     # Read csv files
@@ -48,6 +49,7 @@ def importBoris(filename : str):
     events = pd.DataFrame(df, columns=['Start (s)', 'Duration (s)', 'Event']).to_numpy()
     return events
     
+
    
     
 # Generic Import File
