@@ -18,6 +18,11 @@ from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QSlider, QSpinBox
 )
 
+import matplotlib
+matplotlib.use('QtAgg')
+from matplotlib.backends.backend_qtagg import NavigationToolbar2QT
+
+
 from frontend.ethogramPlot import EthogramPlot
 from backend.controller import Controller
 
@@ -44,7 +49,7 @@ class Canvas(QWidget):
         '''
         
         self.control.setPlot(self)
-        
+        self.plotToolbar = NavigationToolbar2QT(self.control.ethogram, self)
         
         self.timeMax_spinbox = QSpinBox()
         self.timeMax_spinbox.setMinimum(self.timeMin)
@@ -59,6 +64,7 @@ class Canvas(QWidget):
         
         widgets = [
             #self.image,
+            self.plotToolbar,
             self.control.ethogram,
             self.timeMax_slider,
             self.timeMax_spinbox
@@ -71,8 +77,6 @@ class Canvas(QWidget):
             layout.addWidget(w)
 
         self.setLayout(layout)
-        
-        
         
         
     def timeMax_slider_moved(self, p):

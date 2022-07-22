@@ -16,6 +16,3 @@ class Behaviour:
         self.events = events
         self.colour = colour
         
-    
-    def addEvent(self, event: Event):
-        self.events.append(event)

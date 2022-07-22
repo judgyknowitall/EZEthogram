@@ -13,6 +13,11 @@ ViewModel:
 from model.ProjectModel import Project
 from model.BehaviourModel import Behaviour
 from frontend.ethogramPlot import EthogramPlot
+from backend.importFile import importFile
+
+from PyQt6.QtWidgets import (
+    QFileDialog, QColorDialog
+)
 
 
 
@@ -36,14 +41,20 @@ class Controller:
     
     def saveFile(self, s):
         print("SAVE FILE") # TODO
+        # QFileDialog.getSaveFileName()
     
     
-    def importEvents(self, s):
-        print("IMPORT EVENTS!") # TODO
+    # Import Events from a data(csv/xlsx) file
+    def importEvents(self, s, parent=None):
+        fname = QFileDialog.getOpenFileName(parent, 'Open File', self.project.path, 'Data File (*.csv; *.xlsx)')
+        if fname[0]:
+            self.project.behaviours = importFile(fname[0]) #TODO append later
+            self.ethogram.drawPlot(self.project) # update plot
     
     
+    # Export Plot
     def export(self, s):
-        print("EXPORT!") # TODO
+        self.ethogram.exportPlot(self.project.name, outputPath= self.project.path)
         
         
         
@@ -74,6 +85,7 @@ class Controller:
         print("VIEW GRID?", s) #TODO
         
     
+    # Show / hide Events-Window
     def toggleEventsWindow(self, eventsWindow):
         if eventsWindow.isVisible():
             eventsWindow.setHidden(True)
@@ -91,6 +103,9 @@ class Controller:
     
     def editBehaviourColour(self, behaviour:Behaviour):
         print("EDIT BEHAVIOUR:", behaviour.name) #TODO
+        col = QColorDialog.getColor()
+        if col.isValid():
+            print(col.getRgb())
         
     
     def newEvent(self, s):

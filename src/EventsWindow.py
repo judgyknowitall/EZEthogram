@@ -51,6 +51,7 @@ class EventsWindow(QDockWidget):
          
          events_gridLayout = QGridLayout()
          
+         # TODO update this:
          row = 0
          for behaviour in self.control.project.behaviours:
              

@@ -7,7 +7,7 @@ Created on Thu Jul 21 12:50:49 2022
 Ethogram Plot
 """
 
-
+import os.path
 import matplotlib
 matplotlib.use('QtAgg')
 import matplotlib.pyplot as plt
@@ -29,11 +29,14 @@ class EthogramPlot(FigureCanvasQTAgg):
 
     def drawPlot(self, proj:Project, xmax=None):
         
+        # Clear Plot
+        self.axes.cla()
+        
         if xmax == None:
             xmax = 0
             for b in proj.behaviours:
                 maximum = max([e.start + e.length for e in b.events])
-                xmax = max([xmax, maximum])
+                xmax = int(max([xmax, maximum]))
                     
          
         # Set limits
@@ -63,6 +66,16 @@ class EthogramPlot(FigureCanvasQTAgg):
             broken_bars = [(e.start, e.length) for e in occurrences]
             plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].colour))
     
-        #plt.savefig("out/" + filename + "_ganttchart.svg", bbox_inches='tight')
-        plt.close(self.fig)
+        #plt.close(self.fig) # Extra Plot? TODO
+        self.draw()
+        
+        
+    def exportPlot(self, filename:str, outputPath='../out/', ext = '.png'):
+        
+        if not os.path.exists(outputPath):
+            os.mkdir(outputPath)
+        
+        path = os.path.join(outputPath, filename + ext)
+        plt.savefig(path, bbox_inches='tight')
+        print("File Saved at:", os.path.abspath(path))
     

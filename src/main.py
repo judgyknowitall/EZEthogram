@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         
         
         # Edit actions
-        importEvent_action = self.createAction("Import Events", icon= EZIcon.importEvent, function= self.control.importEvents)
+        importEvent_action = self.createAction("Import Events", icon= EZIcon.importEvent, function= lambda s: self.control.importEvents(s, self))
         addEvent_action = self.createAction("Add Event", icon= EZIcon.addEvent, function= self.control.addEvent)
         editEvents_action = self.createAction("Edit Events", icon= EZIcon.editEvent, function= self.control.editEvents)
         editPalette_action = self.createAction("Edit Palette", icon= EZIcon.editPalette, function= self.control.editPalette)
