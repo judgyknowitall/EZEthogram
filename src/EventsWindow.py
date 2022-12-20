@@ -15,7 +15,7 @@ Reference:
 
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import (
     QLabel, QPushButton, QVBoxLayout, QDockWidget, QGridLayout, QFrame
 )
@@ -57,13 +57,15 @@ class EventsWindow(QDockWidget):
              
              # View
              view_btn = QPushButton(QIcon(EZIcon.eye),'')
-             view_btn.clicked.connect(lambda s,b=behaviour: self.control.toggleBehaviourView(s, b))
+             view_btn.clicked.connect(lambda _, s=view_btn, b=behaviour: self.control.toggleBehaviourView(s, b))
              view_btn.setCheckable(True)
              events_gridLayout.addWidget(view_btn, row, 0)      
              
              # Colour
-             clr_btn = QPushButton(QIcon(EZIcon.square),'')
-             clr_btn.clicked.connect(lambda s, b=behaviour: self.control.editBehaviourColour(b))
+             pixmap = QPixmap(100,100)
+             pixmap.fill(QColor(*behaviour.colour))
+             clr_btn = QPushButton(QIcon(pixmap),'')
+             clr_btn.clicked.connect(lambda _, s=clr_btn, b=behaviour: self.control.editBehaviourColour(s, b))
              events_gridLayout.addWidget(clr_btn, row, 1)
              
              # Behaviour Name

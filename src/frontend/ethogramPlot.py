@@ -61,7 +61,7 @@ class EthogramPlot(FigureCanvasQTAgg):
                 # Get all occurrences of the event and draw its bars
                 occurrences = proj.behaviours[i].events
                 broken_bars = [(e.start, e.length) for e in occurrences]
-                plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].colour))
+                plt.broken_barh(broken_bars, (i*10,10), facecolors=(proj.behaviours[i].plotColour))
     
     
         #plt.close(self.fig) # Extra Plot? TODO

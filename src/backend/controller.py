@@ -14,10 +14,11 @@ from model.ProjectModel import Project
 from model.BehaviourModel import Behaviour
 from frontend.ethogramPlot import EthogramPlot
 from backend.importFile import importFile
-from constant import FileFormat
+from constant import FileFormat, EZIcon
 
+from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import (
-    QFileDialog, QColorDialog
+    QFileDialog, QColorDialog, QPushButton
 )
 
 
@@ -102,15 +103,30 @@ class Controller:
     # EVENTS WINDOW FUNCTIONS ------------------
     
     
-    def toggleBehaviourView(self, s, behaviour:Behaviour):
-        print("TOGGLE BEHAVIOUR:", behaviour.name) #TODO
+    # Toggle view of the behaviour
+    def toggleBehaviourView(self, source:QPushButton, behaviour:Behaviour):
+
+        if (source.isChecked()):
+            source.setIcon(QIcon(EZIcon.crossedEye))
+        else:
+            source.setIcon(QIcon(EZIcon.eye))
+
+        behaviour.isVisible = not source.isChecked()
+        self.ethogram.drawPlot(self.project)
     
     
-    def editBehaviourColour(self, behaviour:Behaviour):
-        print("EDIT BEHAVIOUR:", behaviour.name) #TODO
+    # Change the Behaviour colour
+    def editBehaviourColour(self, source:QPushButton, behaviour:Behaviour):
         col = QColorDialog.getColor()
         if col.isValid():
-            print(col.getRgb())
+            rgba = col.getRgb()
+            pixmap = QPixmap(100,100)
+            pixmap.fill(QColor(*rgba))
+            source.setIcon(QIcon(pixmap))
+            
+            behaviour.set_colour(rgba)
+            self.ethogram.drawPlot(self.project)
+
         
         
         

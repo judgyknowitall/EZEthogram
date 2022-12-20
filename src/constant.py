@@ -12,7 +12,7 @@ Constants
 class EZIcon:
     
     oldIconPath = "../resources/fugue-icons-3.5.6/icons/"
-    iconPath = "../assets/"
+    iconPath = "./assets/"
     ext = ".svg"
     
     # Icons

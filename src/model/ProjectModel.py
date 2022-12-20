@@ -16,14 +16,15 @@ class Project:
     
     name = "My Ethogram"
     path = "../projects/"
-    behaviours : [Behaviour] = []
+    behaviours : list[Behaviour] = []
     
     
     def __init__(self):
+        print('Creating place holder...')
         # Place holder behaviours
-        a = Behaviour('A', [Event(0.2,0.5), Event(1, 5)],"tab:green") # Bottom
-        b = Behaviour('B', [Event(6.2, 0.3), Event(2, 3)],"tab:orange")
-        c = Behaviour('C', [Event(0, 2), Event(4, 7)],"tab:blue")
+        a = Behaviour('A', [Event(0.2,0.5), Event(1, 5)],(83, 121, 198, 255)) # Bottom
+        b = Behaviour('B', [Event(6.2, 0.3), Event(2, 3)],(232, 171, 49, 255))
+        c = Behaviour('C', [Event(0, 2), Event(4, 7)],(76, 179, 93, 255))
         
         self.behaviours = [a,b,c]
         
