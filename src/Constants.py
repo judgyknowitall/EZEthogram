@@ -37,6 +37,9 @@ class EZIcon:
     eye = iconPath + "eye" + ext
     crossedEye = iconPath + "crossedEye" + ext
     square = iconPath + "square" + ext
+
+    empty_square = iconPath + "empty_square" + ext
+    checked_square = iconPath + "checked_square" + ext
     
     palette = iconPath + "palette" + ext
     

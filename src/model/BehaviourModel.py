@@ -11,7 +11,7 @@ from model.EventModel import Event
 
 class Behaviour:
 
-    def __init__(self, name: str, events: list[Event] = [], colour = (255, 255, 255, 255)):
+    def __init__(self, name: str, events: list[Event] = [], colour: tuple[int,int,int,int] = (0, 0, 0, 255)):
         self.name = name            # Behaviour name
         self.events = events
         self.isVisible = True

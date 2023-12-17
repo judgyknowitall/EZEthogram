@@ -9,16 +9,16 @@ Importing Events from Data files (*.csv, *.xlsx)
 
 
 import pandas as pd
-import numpy as np
-
+from model.Enums import FileType
 from model.BehaviourModel import Behaviour
-from model.EventModel import Event
+from model.EventModel import Event, FileEvent
 
 
 # Import XLSX file
-def importCleversys(filename : str):
+def importCleversys(filename : str, headerline: int):
     # Read csv files
-    df = pd.read_excel(filename, skiprows=range(0,6))
+    skipMax = max(0, headerline - 1)
+    df = pd.read_excel(filename, skiprows=range(0,skipMax))
     
     # TODO customize later
     # Filter out cleversys events
@@ -38,9 +38,10 @@ def importCleversys(filename : str):
 
 
 # Import Boris CSV file
-def importBoris(filename : str):
+def importBoris(filename : str, headerline: int):
     # Read csv files
-    df = pd.read_csv(filename)
+    skipMax = max(0, headerline - 1)
+    df = pd.read_csv(filename, skiprows=range(0, skipMax))
     
     # TODO customize later
     # Reorganize data (concatenate behavior and modifiers)
@@ -52,36 +53,39 @@ def importBoris(filename : str):
 
    
     
-# Generic Import File
-def importFile(filename: str, isCleversys= False, isBoris= False):
-    
-    #TODO make manual instead
-    isCleversys = filename.endswith('.xlsx')
-    isBoris = filename.endswith('.csv')
+# Creates a list of events imported from file
+def importEventsFromFile(filename: str, type: FileType, headerline: int) -> list[FileEvent]:
     
     # event = [start, duration, event-name]
     events = []
     
-    if isCleversys:
-        events = importCleversys(filename)
+    match type:
+        case FileType.CLEVERSYS:
+            events = importCleversys(filename, headerline)
         
-    elif isBoris:
-        events = importBoris(filename)
+        case FileType.BORIS:
+            events = importBoris(filename, headerline)
+
+        case _:
+            print("Not supported yet!")
+            return
         
-    else:
-        print("Not supported yet!")
-        return
-        
+    return [FileEvent(e[0], e[1], e[2]) for e in events]
+
+
+
+# Organizes a list of file events into behaviours
+def OrganizeIntoBehaviours(fileEvents: list[FileEvent]) -> list[Behaviour]:
     # Transform into [Behaviour] datatype
     behaviours = []
-    for fileEvent in events:
+    for fileEvent in fileEvents:
         
-        event = Event(fileEvent[0], fileEvent[1])
+        event = Event(fileEvent.start, fileEvent.length)
         
         # See if behaviour already exists -> append event instead of creating new behaviour
         behaviourIndex = -1
         for i in range(len(behaviours)):
-            if behaviours[i].name == fileEvent[2]:
+            if behaviours[i].name == fileEvent.shownName:
                 behaviourIndex = i 
                 break
               
@@ -89,7 +93,6 @@ def importFile(filename: str, isCleversys= False, isBoris= False):
         if behaviourIndex >= 0:
             behaviours[behaviourIndex].events.append(event)
         else:
-            behaviours.append(Behaviour(fileEvent[2], [event]))
-
+            behaviours.append(Behaviour(fileEvent.shownName, [event]))
 
     return behaviours

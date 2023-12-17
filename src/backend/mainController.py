@@ -13,8 +13,10 @@ ViewModel:
 from model.ProjectModel import Project
 from model.BehaviourModel import Behaviour
 from frontend.ethogramPlot import EthogramPlot
-from backend.importFile import importFile
-from constant import FileFormat, EZIcon
+from Constants import FileFormat, EZIcon
+
+from frontend.windows.FileImportWindow import FileImportDialog
+from backend.fileImportController import FileImportController
 
 from PyQt6.QtGui import QIcon, QPixmap, QColor
 from PyQt6.QtWidgets import (
@@ -23,7 +25,8 @@ from PyQt6.QtWidgets import (
 
 
 
-class Controller:
+# Controller for the main window
+class MainController:
     
     def __init__(self):
         self.project = Project()
@@ -33,29 +36,31 @@ class Controller:
 
     # FILE FUNCTIONS ---------------------------
     
-    def newFile(self, s):
+    def newFile(self, _):
         print("NEW FILE!") # TODO
         
     
-    def openFile(self, s):
+    def openFile(self, _):
         print("OPEN FILE!") # TODO
     
     
-    def saveFile(self, s):
+    def saveFile(self, _):
         print("SAVE FILE") # TODO
         # QFileDialog.getSaveFileName()
     
     
-    # Import Events from a data(csv/xlsx) file
-    def importEvents(self, s, parent=None):
-        fname = QFileDialog.getOpenFileName(parent, 'Open File', self.project.path, 'Data File (*.csv; *.xlsx)')
-        if fname[0]:
-            self.project.behaviours = importFile(fname[0]) #TODO append later
+    # Show the FileImport Window to import events from a data(csv/xlsx) file
+    def importEvents(self, _, parent=None):
+        (fname, _) = QFileDialog.getOpenFileName(parent, 'Open File', self.project.path, 'Data File (*.csv; *.xlsx)')
+        window = FileImportDialog(FileImportController(self.project, fname))
+        print (fname)
+        if window.exec():
+            self.project = window.getImportedProject()
             self.ethogram.drawPlot(self.project) # update plot
     
     
     # Export Plot
-    def export(self, s, parent=None):
+    def export(self, _, parent=None):
         imagePath = self.project.path + self.project.name
         fileFormats = ";; ".join([FileFormat.png, FileFormat.pdf, FileFormat.ps, FileFormat.eps, FileFormat.svg])
         fname = QFileDialog.getSaveFileName(parent, 'Save Ethogram', imagePath, fileFormats, FileFormat.svg)

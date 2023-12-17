@@ -24,7 +24,7 @@ from matplotlib.backends.backend_qtagg import NavigationToolbar2QT
 
 
 from frontend.ethogramPlot import EthogramPlot
-from backend.controller import Controller
+from backend.mainController import MainController
 
 
     
@@ -37,7 +37,7 @@ class Canvas(QWidget):
     timeMin = 5
     timeStep = 1
     
-    def __init__ (self, control:Controller):
+    def __init__ (self, control:MainController):
         super().__init__()
         self.control = control
         

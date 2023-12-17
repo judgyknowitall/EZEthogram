@@ -14,10 +14,10 @@ from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QStatusBar, QToolBar
 )
 
-from backend.controller import Controller
-from EventsWindow import EventsWindow
+from backend.mainController import MainController
+from frontend.windows.EventsWindow import EventsWindow
 from canvas import Canvas
-from constant import EZIcon
+from Constants import EZIcon
 
 
 
@@ -26,7 +26,7 @@ class MainWindow(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.control = Controller()
+        self.control = MainController()
         
         # WINDOW ----------------------------
         

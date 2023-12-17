@@ -20,14 +20,14 @@ from PyQt6.QtWidgets import (
     QLabel, QPushButton, QVBoxLayout, QDockWidget, QGridLayout, QFrame
 )
 
-from constant import EZIcon
-from backend.controller import Controller
+from Constants import EZIcon
+from backend.mainController import MainController
 
 
 
 class EventsWindow(QDockWidget):
     
-     def __init__(self, control: Controller, parent=None):
+     def __init__(self, control: MainController, parent=None):
          super().__init__("Events", parent)
          self.control = control
          
